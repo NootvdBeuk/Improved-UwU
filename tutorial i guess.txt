@@ -4,7 +4,6 @@ other way around in assets>minecraft>textures>item
 Bed textures can be changed by running uwu.bat in assets>minecraft>models>block>bed and 
 inputting one of the folder names (which you can see in assets>minecraft>textures>blocks>beds
 
-Als je de fantastische skybox niet wil (je bent een domme stomert dan), verwijder alles behalve ctm 
-uit assets>minecraft>mcpatcher
+Als je de fantastische skybox niet wil (je bent een domme stomert dan), ga naar video settings > quality en zet custom sky uit
 
 f3+t ingame om textures te reloaden voor de minder begaafden onder ons.
