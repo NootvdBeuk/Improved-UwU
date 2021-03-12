@@ -3,6 +3,7 @@ record.nowPlaying=Vibing To: %s
 options.fov.max=wtf is wrong with you
 
 item.netherStar.name=Stardrop
+item.bread.name=Transwich
 
 container.inventory=
 container.hopper=
@@ -38,4 +39,3 @@ potion.confusion.postfix=Potion of seeing your mom
 
 
 
-item.bread.name=Transwhich
