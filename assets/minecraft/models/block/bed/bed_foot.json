@@ -1,1 +1,1 @@
-{"parent":"block/bed_foot","textures":{"top":"blocks/beds/ace/bed_feet_top","end":"blocks/beds/ace/bed_feet_end","side":"blocks/beds/ace/bed_feet_side"}} 
+{"parent":"block/bed_foot","textures":{"top":"blocks/beds/progress/bed_feet_top","end":"blocks/beds/progress/bed_feet_end","side":"blocks/beds/progress/bed_feet_side"}}
