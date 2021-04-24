@@ -25,14 +25,14 @@ tkvarq.set(bed_types[0])
 bed_type = OptionMenu(root, tkvarq, *bed_types)
 bed_type.grid(row=0)
 
-def write_bed_type(fi, t, p):
+def write_bed_type(fi, t, p, pn):
     with open(os.path.join(bed_model_path, fi), 'w') as f:
-        f.write('{"parent":"block/bed_foot","textures":{"top":"blocks/beds/'+t+'/bed_'+p+'_top","end":"blocks/beds/'+t+'/bed_'+p+'_end","side":"blocks/beds/'+t+'/bed_'+p+'_side"}}')
+        f.write('{"parent":"block/bed_'+pn+'","textures":{"top":"blocks/beds/'+t+'/bed_'+p+'_top","end":"blocks/beds/'+t+'/bed_'+p+'_end","left":"blocks/beds/'+t+'/bed_'+p+'_left","right":"blocks/beds/'+t+'/bed_'+p+'_right"}}')
 
 def set_bed_type():
     print("setting bed type to " + tkvarq.get())
-    write_bed_type('bed_foot.json', tkvarq.get(), 'feet')
-    write_bed_type('bed_head.json', tkvarq.get(), 'head')
+    write_bed_type('bed_foot.json', tkvarq.get(), 'feet', 'foot')
+    write_bed_type('bed_head.json', tkvarq.get(), 'head', 'head')
 
 set_bed_type_button = Button(root, text='set bed type', command=set_bed_type)
 set_bed_type_button.grid(row=0, column=1)
