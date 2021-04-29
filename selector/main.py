@@ -20,39 +20,40 @@ root = Tk()
 root.title("UnU")
 root.configure(bg='#ffffff')
 
+class selector:
+    def __init__(self, r, l, t, vals, func):
+        self.tkvarq = StringVar(root)
+        self.tkvarq.set(vals[0])
+        self.l = Label(root, text = l)
+        self.l.grid(row=r, column=0)
+        self.sel = OptionMenu(root, self.tkvarq, *vals)
+        self.sel.grid(row=r, column=1)
+        self.button = Button(root, text=t, command=func)
+        self.button.grid(row=r, column=2)
+
 # beds
-tkvarq_bed = StringVar(root)
-tkvarq_bed.set(bed_types[0])
-bed_type = OptionMenu(root, tkvarq_bed, *bed_types)
-bed_type.grid(row=0)
 def write_bed_type(fi, t, p, pn):
     with open(os.path.join(bed_model_path, fi), 'w') as f:
         f.write('{"parent":"block/bed_'+pn+'","textures":{"top":"blocks/beds/'+t+'/bed_'+p+'_top","end":"blocks/beds/'+t+'/bed_'+p+'_end","left":"blocks/beds/'+t+'/bed_'+p+'_left","right":"blocks/beds/'+t+'/bed_'+p+'_right"}}')
 def set_bed_type():
-    print("setting bed type to " + tkvarq_bed.get())
-    write_bed_type('bed_foot.json', tkvarq_bed.get(), 'feet', 'foot')
-    write_bed_type('bed_head.json', tkvarq_bed.get(), 'head', 'head')
-set_bed_type_button = Button(root, text='set bed type', command=set_bed_type)
-set_bed_type_button.grid(row=0, column=1)
+    print("setting bed type to " + bed.tkvarq.get())
+    write_bed_type('bed_foot.json', bed.tkvarq.get(), 'feet', 'foot')
+    write_bed_type('bed_head.json', bed.tkvarq.get(), 'head', 'head')
 
 # wool
-wool_colors = ['black', 'blue', 'brown', 'cyan', 'gray', 'green', 'light_blue', 'lime', 'magenta', 'orange', 'pink', 'purple', 'red', 'silver', 'white', 'yellow']
 wool_types = ['texture pack default', 'outlined']
-tkvarq_wool = StringVar(root)
-tkvarq_wool.set(wool_types[0])
-wool_type = OptionMenu(root, tkvarq_wool, *wool_types)
-wool_type.grid(row=1)
-def set_wool_color(c, d):
-    with open(os.path.join(block_model_path, c+'_wool.json'), 'w') as f:
-        f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + ('Outlined Wool/' if not d else '') + 'wool_colored_' + c + '"}}')
 def set_wool_type():
-    print("setting wool type to " + tkvarq_wool.get())
+    print("setting wool type to " + wool.tkvarq.get())
+    wool_colors = ['black', 'blue', 'brown', 'cyan', 'gray', 'green', 'light_blue', 'lime', 'magenta', 'orange', 'pink', 'purple', 'red', 'silver', 'white', 'yellow']
     for i in wool_colors:
-        set_wool_color(i, tkvarq_wool.get() == wool_types[0])
-set_wool_type_button = Button(root, text='set wool type', command=set_wool_type)
-set_wool_type_button.grid(row=1, column=1)
+        with open(os.path.join(block_model_path, i + '_wool.json'), 'w') as f:
+            f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + ('Outlined Wool/' if wool.tkvarq.get() != wool_types[0] else '') + 'wool_colored_' + i + '"}}')
 
+# -- initializing classes --
+
+bed = selector(0, 'bed type', 'set bed type', bed_types, set_bed_type)
+wool = selector(1, 'wool type', 'set wool type', wool_types, set_wool_type)
 # quit button
-Button(root, text='quit', command=root.destroy).grid(row=2, columnspan=2)
+Button(root, text='quit', command=root.destroy).grid(row=2, columnspan=3)
 
 root.mainloop()
