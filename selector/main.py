@@ -8,7 +8,7 @@ def ensure_path(p):
         os.mkdir(p)
 
 p = sys.executable
-if p.find('python.exe') != -1: p = sys.path[0]
+if p.find('python') != -1: p = sys.path[0]
 else: p = os.path.dirname(os.path.dirname(p))
 mc_path = os.path.join(os.path.dirname(p), 'assets', 'minecraft')
 
