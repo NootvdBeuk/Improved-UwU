@@ -3,15 +3,15 @@ from tkinter import *
 
 # -- os path stuff --
 
-if os.path.dirname(os.path.realpath(__file__)) != sys.path[0]:
-    print("Could not find script path, exiting")
-    sys.exit()
-
 def ensure_path(p):
     if not os.path.exists(p):
         os.mkdir(p)
 
-mc_path = os.path.join(os.path.dirname(sys.path[0]), 'assets', 'minecraft')
+p = sys.executable
+if p.find('python.exe') != -1: p = sys.path[0]
+else: p = os.path.dirname(os.path.dirname(p))
+mc_path = os.path.join(os.path.dirname(p), 'assets', 'minecraft')
+
 model_path = os.path.join(mc_path, 'models')
 block_model_path = os.path.join(model_path, 'block')
 item_model_path = os.path.join(model_path, 'item')
