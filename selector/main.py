@@ -49,11 +49,39 @@ def set_wool_type():
         with open(os.path.join(block_model_path, i + '_wool.json'), 'w') as f:
             f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + ('Outlined Wool/' if wool.tkvarq.get() != wool_types[0] else '') + 'wool_colored_' + i + '"}}')
 
+# sand
+sand_types = ['texture pack default', 'alternative']
+def set_sand_type():
+    print("setting sand type to " + sand.tkvarq.get())
+    d = 'Alternative Sand/' if sand.tkvarq.get() == sand_types[1] else ''
+    for c in ['red_', '']:
+        with open(os.path.join(block_model_path, c + 'sand.json'), 'w') as f:
+            f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + d + c + 'sand"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_all.json'), 'w') as f:
+            f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + d + c + 'sandstone_top"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_normal.json'), 'w') as f:
+            f.write('{"parent":"block/cube_bottom_top","textures":{"bottom":"blocks/' + d + c + 'sandstone_bottom","top":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_normal"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_chiseled.json'), 'w') as f:
+            f.write('{"parent":"block/cube_column","textures":{"end":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_carved"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_smooth.json'), 'w') as f:
+            f.write('{"parent":"block/cube_column","textures":{"end":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_smooth"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_inner_stairs.json'), 'w') as f:
+            f.write('{"parent":"block/inner_stairs","textures":{"bottom":"blocks/' + d + c + 'sandstone_bottom","top":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_normal"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_outer_stairs.json'), 'w') as f:
+            f.write('{"parent":"block/outer_stairs","textures":{"bottom":"blocks/' + d + c + 'sandstone_bottom","top":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_normal"}}')
+        with open(os.path.join(block_model_path, c + 'sandstone_stairs.json'), 'w') as f:
+            f.write('{"parent":"block/stairs","textures":{"bottom":"blocks/' + d + c + 'sandstone_bottom","top":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_normal"}}')
+        with open(os.path.join(block_model_path, 'half_slab_' + c + 'sandstone.json'), 'w') as f:
+            f.write('{"parent":"block/half_slab","textures":{"bottom":"blocks/' + d + c + 'sandstone_bottom","top":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_normal"}}')
+        with open(os.path.join(block_model_path, 'upper_slab_' + c + 'sandstone.json'), 'w') as f:
+            f.write('{"parent":"block/upper_slab","textures":{"bottom":"blocks/' + d + c + 'sandstone_bottom","top":"blocks/' + d + c + 'sandstone_top","side":"blocks/' + d + c + 'sandstone_normal"}}')
+
 # -- initializing classes --
 
 bed = selector(0, 'bed type', 'set bed type', bed_types, set_bed_type)
 wool = selector(1, 'wool type', 'set wool type', wool_types, set_wool_type)
+sand = selector(2, 'sand type', 'set sand type', sand_types, set_sand_type)
 # quit button
-Button(root, text='quit', command=root.destroy).grid(row=2, columnspan=3)
+Button(root, text='quit', command=root.destroy).grid(row=3, columnspan=3)
 
 root.mainloop()
