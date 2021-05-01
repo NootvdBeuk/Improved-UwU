@@ -18,6 +18,9 @@ item_model_path = os.path.join(model_path, 'item')
 bed_model_path = os.path.join(block_model_path, 'bed')
 bed_texture_path = os.path.join(mc_path, 'textures', 'blocks', 'beds')
 bed_types = sorted([f for f in os.listdir(bed_texture_path) if os.path.isdir(os.path.join(bed_texture_path, f))])
+mcpatcher_path = os.path.join(mc_path, 'mcpatcher')
+ctm_path = os.path.join(mcpatcher_path, 'ctm')
+ctm_wool_path = os.path.join(ctm_path, 'wool')
 
 ensure_path(model_path)
 ensure_path(block_model_path)
@@ -52,13 +55,16 @@ def set_bed_type():
     write_bed_type('bed_head.json', bed.tkvarq.get(), 'head', 'head')
 
 # wool
-wool_types = ['texture pack default', 'outlined']
+wool_types = ['texture pack default', 'outlined', 'smooth']
 def set_wool_type():
     print("setting wool type to " + wool.tkvarq.get())
     wool_colors = ['black', 'blue', 'brown', 'cyan', 'gray', 'green', 'light_blue', 'lime', 'magenta', 'orange', 'pink', 'purple', 'red', 'silver', 'white', 'yellow']
+    wool_type = ['', 'Outlined Wool/', 'smooth_wool/'][wool_types.index(wool.tkvarq.get())]
     for i in wool_colors:
         with open(os.path.join(block_model_path, i + '_wool.json'), 'w') as f:
-            f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + ('Outlined Wool/' if wool.tkvarq.get() != wool_types[0] else '') + 'wool_colored_' + i + '"}}')
+            f.write('{"parent":"block/cube_all","textures":{"all":"blocks/' + wool_type + 'wool_colored_' + i + '"}}')
+        with open(os.path.join(os.path.join(ctm_wool_path, i), 'wool_colored_' + i + '.properties'), 'w') as f:
+            f.write('matchBlocks=wool:color=' + i + '\nmethod=ctm\ntiles=0-46' if wool.tkvarq.get() == wool_types[2] else '')
 
 # sand
 sand_types = ['texture pack default', 'alternative']
